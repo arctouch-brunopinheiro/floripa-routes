@@ -16,6 +16,7 @@
 @implementation SearchTableViewController {
 
     WebAPIHandler *webAPIHandler;
+    NSArray *resultsForSearch;
     
 }
 
@@ -23,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupWebAPIHandler];
+    webAPIHandler = [[WebAPIHandler alloc] init];
+    resultsForSearch = [[NSArray alloc] init];
     [self setupSearchBar];
     [self findRoutesByStopName];
 }
@@ -35,11 +37,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [resultsForSearch count];
 }
-
+/*
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -48,7 +48,7 @@
     
     return cell;
 }
-
+*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -115,11 +115,6 @@
 }
 
 #pragma mark - Web API
-
-- (void)setupWebAPIHandler
-{
-    webAPIHandler = [[WebAPIHandler alloc] init];
-}
 
 - (void)findRoutesByStopName
 {

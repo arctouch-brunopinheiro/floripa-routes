@@ -13,14 +13,14 @@
 @implementation WebAPIHandler
 
 - (void)testJSONService
-{
+{/*
     NSString *username = @"WKD4N7YMA1uiM8V";
     NSString *password = @"DtdTtzMLQlA0hk2C1Yi5pLyVIlAQ68";
     
     NSString *customHeaderField = @"X-AppGlu-Environment";
     NSString *customHeaderValue = @"staging";
-
-    NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", username, password];
+ */
+    NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", kUsername, kPassword];
     NSData *authenticationData = [authenticationString dataUsingEncoding:NSASCIIStringEncoding];
     NSString *authenticationValue = [authenticationData base64EncodedStringWithOptions:0];
     
@@ -32,7 +32,7 @@
     
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"Basic %@", authenticationValue] forHTTPHeaderField:@"Authorization"];
-    [request addValue:customHeaderValue forHTTPHeaderField:customHeaderField];
+    [request addValue:kCustomHeaderValue forHTTPHeaderField:kCustomHeaderField];
     [request setHTTPMethod:@"POST"];
     
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];

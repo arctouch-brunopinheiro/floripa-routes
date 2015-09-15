@@ -1,13 +1,18 @@
 //
-//  APIHandler.h
+//  WebAPIHandler.m
 //  ArcTouch Coding Challenge
 //
 //  Created by Mike Quade on 9/14/15.
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WebAPIHandler.h"
 
-@interface APIHandler : NSObject
+@implementation WebAPIHandler
+
+- (void)testJSONService
+{
+    NSLog(@"TEST JSON SERVICE");
+}
 
 @end

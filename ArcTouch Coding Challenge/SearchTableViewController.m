@@ -7,18 +7,25 @@
 //
 
 #import "SearchTableViewController.h"
+#import "WebAPIHandler.h"
 
 @interface SearchTableViewController ()
 
 @end
 
-@implementation SearchTableViewController
+@implementation SearchTableViewController {
+
+    WebAPIHandler *webAPIHandler;
+    
+}
 
 @synthesize searchController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupWebAPIHandler];
     [self setupSearchBar];
+    [self findRoutesByStopName];
 }
 
 #pragma mark - Table view data source
@@ -105,6 +112,18 @@
 {
     NSString *searchString = searchBar.text;
     NSLog(@"SEARCHED FOR: %@", searchString);
+}
+
+#pragma mark - Web API
+
+- (void)setupWebAPIHandler
+{
+    webAPIHandler = [[WebAPIHandler alloc] init];
+}
+
+- (void)findRoutesByStopName
+{
+    [webAPIHandler testJSONService];
 }
 
 @end

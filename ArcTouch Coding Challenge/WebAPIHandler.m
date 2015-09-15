@@ -12,6 +12,36 @@
 
 @implementation WebAPIHandler
 
+
+#pragma mark - Perform Searches (public)
+
+- (void)findRoutesByStopName:(NSString *)stopName
+{
+    NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
+    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:stopName];
+    [self addRequestDictionary:requestDictionary ToURLRequest:request];
+    [self performURLRequest:request];
+}
+
+#pragma mark - Delegates (private)
+
+- (void)hideSpinnerOnSearchTableViewController
+{
+
+}
+
+- (void)showSpinnerOnSearchTableViewController
+{
+    
+}
+
+- (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
+{
+
+}
+
+#pragma mark - Create URL Request (private)
+
 - (NSString *)getAuthenticationValue
 {
     NSString *authenticationString = [NSString stringWithFormat:@"%@:%@", kUsername, kPassword];
@@ -51,6 +81,8 @@
     return requestDictionary;
 }
 
+#pragma mark - Perform URL Request (private)
+
 - (void)performURLRequest:(NSMutableURLRequest *)request
 {
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *responseCode, NSData *responseData, NSError *responseError) {
@@ -73,6 +105,8 @@
         }
     }];
 }
+
+#pragma mark - Show Alerts
 
 - (void)testJSONService
 {

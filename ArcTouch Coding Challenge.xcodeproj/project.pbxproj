@@ -14,6 +14,7 @@
 		279A9DB71BA7966E006AAE19 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 279A9DB51BA7966E006AAE19 /* LaunchScreen.xib */; };
 		279A9DC31BA7966E006AAE19 /* ArcTouch_Coding_ChallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DC21BA7966E006AAE19 /* ArcTouch_Coding_ChallengeTests.m */; };
 		279A9DD41BA7996C006AAE19 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */; };
+		279A9DD71BA7A13E006AAE19 /* APIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DD61BA7A13E006AAE19 /* APIHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		279A9DC21BA7966E006AAE19 /* ArcTouch_Coding_ChallengeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArcTouch_Coding_ChallengeTests.m; sourceTree = "<group>"; };
 		279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
 		279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
+		279A9DD51BA7A13E006AAE19 /* APIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIHandler.h; sourceTree = "<group>"; };
+		279A9DD61BA7A13E006AAE19 /* APIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 		279A9DA51BA7966E006AAE19 /* ArcTouch Coding Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				279A9DD81BA7A14C006AAE19 /* API */,
+				279A9DD91BA7A165006AAE19 /* ViewControllers */,
 				279A9DAA1BA7966E006AAE19 /* AppDelegate.h */,
 				279A9DAB1BA7966E006AAE19 /* AppDelegate.m */,
 				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
@@ -117,6 +122,22 @@
 				279A9DC11BA7966E006AAE19 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		279A9DD81BA7A14C006AAE19 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				279A9DD51BA7A13E006AAE19 /* APIHandler.h */,
+				279A9DD61BA7A13E006AAE19 /* APIHandler.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		279A9DD91BA7A165006AAE19 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +243,7 @@
 				279A9DD41BA7996C006AAE19 /* SearchTableViewController.m in Sources */,
 				279A9DAC1BA7966E006AAE19 /* AppDelegate.m in Sources */,
 				279A9DA91BA7966E006AAE19 /* main.m in Sources */,
+				279A9DD71BA7A13E006AAE19 /* APIHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,19 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    /*self.searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"ScopeButtonCountry",@"Country"),
-                                                        NSLocalizedString(@"ScopeButtonCapital",@"Capital")];*/
-    self.searchController.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    [self.searchController.searchBar sizeToFit];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self setupSearchBar];
 }
 
 #pragma mark - Table view data source
@@ -101,13 +89,22 @@
 }
 */
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+#pragma mark - Search Bar
+
+- (void)setupSearchBar
 {
-    NSString *searchString = searchController.searchBar.text;
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    //self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    [self.searchController.searchBar sizeToFit];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSString *searchString = searchBar.text;
     NSLog(@"SEARCHED FOR: %@", searchString);
-    
-    //[self searchForText:searchString scope:searchController.searchBar.selectedScopeButtonIndex];
-    [self.tableView reloadData];
 }
 
 @end

@@ -28,6 +28,16 @@
     resultsForSearch = [[NSArray alloc] init];
     [self setupSearchBar];
     [self findRoutesByStopName];
+    /*
+    UIView *spinnerBackGroundView = [[UIView alloc] initWithFrame:self.tableView.frame];
+    spinnerBackGroundView.backgroundColor = [UIColor blackColor];
+    spinnerBackGroundView.alpha = 0.1;
+    [self.tableView addSubview:spinnerBackGroundView];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner setCenter:CGPointMake(160,124)];
+    [self.tableView addSubview:spinner];
+    spinner.frame = self.tableView.frame;
+    [spinner startAnimating];*/
 }
 
 #pragma mark - Table view data source

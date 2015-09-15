@@ -12,6 +12,7 @@
 
 @implementation WebAPIHandler
 
+@synthesize delegate;
 
 #pragma mark - Perform Searches (public)
 
@@ -32,7 +33,9 @@
 
 - (void)showSpinnerOnSearchTableViewController
 {
-    
+    if([delegate respondsToSelector:@selector(showSpinnerOnSearchTableViewController)]) {
+        [delegate showSpinnerOnSearchTableViewController];
+    }
 }
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
@@ -110,10 +113,13 @@
 
 - (void)testJSONService
 {
+    [self showSpinnerOnSearchTableViewController];
+    /*
     NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
     NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:@"%lauro linhares%"];
     [self addRequestDictionary:requestDictionary ToURLRequest:request];
     [self performURLRequest:request];
+     */
 }
 
 @end

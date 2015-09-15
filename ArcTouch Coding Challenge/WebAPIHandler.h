@@ -8,7 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol WebAPISearchDelegate <NSObject>
+
+- (void)hideSpinnerOnSearchTableViewController;
+- (void)showSpinnerOnSearchTableViewController;
+- (void)updateSearchTableViewControllerWithRows:(NSArray *)rows;
+
+@end
+
 @interface WebAPIHandler : NSObject
+
+@property (nonatomic, assign) id delegate;
 
 - (void)testJSONService;
 

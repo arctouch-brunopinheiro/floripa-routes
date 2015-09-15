@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
+#import "WebAPIHandler.h"
 #import <UIKit/UIKit.h>
 
-@interface SearchTableViewController : UITableViewController <UISearchBarDelegate>
+@interface SearchTableViewController : UITableViewController <UISearchBarDelegate, WebAPISearchDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
 

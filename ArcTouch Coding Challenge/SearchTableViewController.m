@@ -7,7 +7,6 @@
 //
 
 #import "SearchTableViewController.h"
-#import "WebAPIHandler.h"
 
 @interface SearchTableViewController ()
 
@@ -25,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     webAPIHandler = [[WebAPIHandler alloc] init];
+    webAPIHandler.delegate = self;
     resultsForSearch = [[NSArray alloc] init];
     [self setupSearchBar];
     [self findRoutesByStopName];
@@ -103,6 +103,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Delegates
+
+- (void)hideSpinnerOnSearchTableViewController
+{
+    
+}
+
+- (void)showSpinnerOnSearchTableViewController
+{
+    NSLog(@"Show Spinner");
+}
+
+- (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
+{
+    
+}
 
 #pragma mark - Search Bar
 

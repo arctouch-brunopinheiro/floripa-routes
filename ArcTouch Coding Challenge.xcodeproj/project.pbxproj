@@ -90,8 +90,6 @@
 				279A9DD91BA7A165006AAE19 /* ViewControllers */,
 				279A9DAA1BA7966E006AAE19 /* AppDelegate.h */,
 				279A9DAB1BA7966E006AAE19 /* AppDelegate.m */,
-				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
-				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
 				279A9DB01BA7966E006AAE19 /* Main.storyboard */,
 				279A9DB31BA7966E006AAE19 /* Images.xcassets */,
 				279A9DB51BA7966E006AAE19 /* LaunchScreen.xib */,
@@ -140,6 +138,8 @@
 		279A9DD91BA7A165006AAE19 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
+				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

@@ -17,7 +17,7 @@
 
     SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
-    NSArray *resultsForSearch;
+    NSArray *resultRowsForSearch;
     
 }
 
@@ -28,7 +28,7 @@
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
 
-    resultsForSearch = [[NSArray alloc] init];
+    resultRowsForSearch = [[NSArray alloc] init];
     
     [self setupSearchBar];
     spinnerView = [[SpinnerView alloc] initWithTableView:self.tableView];
@@ -52,18 +52,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [resultsForSearch count];
+    return [resultRowsForSearch count];
 }
-/*
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+    NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
+    cell.textLabel.text = [cellContent objectForKey:@"longName"];
+    cell.tag = (int)[cellContent objectForKey:@"id"];
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -123,7 +124,8 @@
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
-    NSLog(@"%@", rows);
+    resultRowsForSearch = rows;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Search Bar

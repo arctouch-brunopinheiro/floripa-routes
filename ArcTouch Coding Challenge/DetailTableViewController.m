@@ -12,6 +12,8 @@
     
     WebAPIHandler *webAPIHandler;
     NSArray *resultRowsForSearch;
+    CGFloat heightForCell;
+    int selectedRow;
     
 }
 
@@ -23,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    heightForCell = 20;
     resultRowsForSearch = [[NSArray alloc] init];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
@@ -39,7 +42,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -58,6 +61,28 @@
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     cell.textLabel.text = [cellContent objectForKey:@"name"];
     return cell;
+}
+
+#pragma mark - Cell Details
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    int row = (int)[indexPath row];
+    selectedRow = row;
+    
+    heightForCell = 100;
+    [tableView beginUpdates];
+    [tableView endUpdates];
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 50;
+    if ([indexPath row] == selectedRow) {
+        height = heightForCell;
+    }
+    return height;
 }
 
 

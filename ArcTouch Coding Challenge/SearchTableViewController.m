@@ -59,8 +59,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
-    DetailTableViewController *destinationViewController = [segue destinationViewController];
-    destinationViewController.routeId = [cellContent objectForKey:@"id"];
+    
+    UINavigationController *navController = [segue destinationViewController];
+    DetailTableViewController *detailsTableViewController = (DetailTableViewController *)([navController viewControllers][0]);
+    
+
+    
+    //DetailTableViewController *destinationViewController = [segue destinationViewController];
+    detailsTableViewController.routeId = [cellContent objectForKey:@"id"];
 }
 
 #pragma mark - Delegates

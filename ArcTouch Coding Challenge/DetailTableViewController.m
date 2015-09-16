@@ -13,6 +13,8 @@
     WebAPIHandler *webAPIHandler;
     NSArray *rowsForRoutes;
     NSArray *departuresForRoute;
+    int departureCellRow;
+    int departureCellColumn;
     
 }
 
@@ -70,31 +72,56 @@
     NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
     [webAPIHandler findDeparturesByRouteId:[[cellContent objectForKey:@"id"] stringValue]];
     
-    [tableView beginUpdates];
-    [tableView endUpdates];
+
 }
 
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 50;
-    if ([indexPath row] == selectedRow) {
-        height = heightForCell;
-    }
-    return height;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 200;
 }
-*/
+
+
+- (void)addDeparturesToSelectedCell:(NSArray *)departures
+{
+    departureCellColumn = 0;
+    departureCellRow = 0;
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    for (NSDictionary *departure in departures) {
+        UILabel *label = [self getLabelForCellDetails:cell];
+        label.text = @"test";
+        [cell addSubview:label];
+    }
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
+- (UILabel *)getLabelForCellDetails:(UITableViewCell *)cell
+{
+    return [[UILabel alloc] initWithFrame:[self getFrameForCellDetailsLabel:cell]];
+}
+
+- (CGRect)getFrameForCellDetailsLabel:(UITableViewCell *)cell
+{
+    int labelWidth = (cell.frame.size.width - 40) / 3;
+    int labelHeight = 20;
+    int labelPositionX = 10 + (departureCellColumn * (labelWidth + 10));
+    int labelPositionY = 10 + (departureCellRow + (labelHeight + 10));
+    return CGRectMake(labelPositionX, labelPositionY, labelWidth, labelHeight);
+}
 
 #pragma mark - Delegates
 
 - (void)updateDetailTableViewControllerWithRows:(NSArray *)rows
 {
     rowsForRoutes = rows;
+    [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
     [self.tableView reloadData];
 }
 
 - (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures
 {
-    departuresForRoute = departures;
+    [self addDeparturesToSelectedCell:departures];
 }
 
 

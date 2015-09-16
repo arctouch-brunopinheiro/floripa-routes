@@ -17,6 +17,7 @@
 		279A9DDC1BA7A41C006AAE19 /* WebAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DDB1BA7A41C006AAE19 /* WebAPIHandler.m */; };
 		279A9DE21BA8E665006AAE19 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DE11BA8E665006AAE19 /* SpinnerView.m */; };
 		279A9DE51BA8FFA7006AAE19 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DE41BA8FFA7006AAE19 /* DetailTableViewController.m */; };
+		279A9DE81BAA2F0F006AAE19 /* DeparturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DE71BAA2F0F006AAE19 /* DeparturesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		279A9DE11BA8E665006AAE19 /* SpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
 		279A9DE31BA8FFA7006AAE19 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		279A9DE41BA8FFA7006AAE19 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		279A9DE61BAA2F0F006AAE19 /* DeparturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeparturesViewController.h; sourceTree = "<group>"; };
+		279A9DE71BAA2F0F006AAE19 /* DeparturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeparturesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 			children = (
 				279A9DE31BA8FFA7006AAE19 /* DetailTableViewController.h */,
 				279A9DE41BA8FFA7006AAE19 /* DetailTableViewController.m */,
+				279A9DE61BAA2F0F006AAE19 /* DeparturesViewController.h */,
+				279A9DE71BAA2F0F006AAE19 /* DeparturesViewController.m */,
 				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
 				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
 				279A9DE01BA8E665006AAE19 /* SpinnerView.h */,
@@ -259,6 +264,7 @@
 				279A9DD41BA7996C006AAE19 /* SearchTableViewController.m in Sources */,
 				279A9DAC1BA7966E006AAE19 /* AppDelegate.m in Sources */,
 				279A9DE21BA8E665006AAE19 /* SpinnerView.m in Sources */,
+				279A9DE81BAA2F0F006AAE19 /* DeparturesViewController.m in Sources */,
 				279A9DA91BA7966E006AAE19 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

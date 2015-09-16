@@ -16,6 +16,12 @@
 
 @end
 
+@protocol WebAPISearchDetailsDelegate <NSObject>
+
+- (void)updateDetailTableViewControllerWithRows:(NSArray *)rows;
+
+@end
+
 @interface WebAPIHandler : NSObject
 
 @property (nonatomic, assign) id delegate;

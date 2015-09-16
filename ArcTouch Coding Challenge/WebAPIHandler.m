@@ -72,6 +72,13 @@
     }
 }
 
+- (void)updateDetailTableViewControllerWithRows:(NSArray *)rows
+{
+    if([delegate respondsToSelector:@selector(updateDetailTableViewControllerWithRows:)]) {
+        [delegate updateDetailTableViewControllerWithRows:rows];
+    }
+}
+
 #pragma mark - Create URL Request (private)
 
 - (NSString *)getAuthenticationValue
@@ -122,8 +129,6 @@
             if (![self isResponseDataContainingResults:responseData]) {
                 [self showAlertForError:@"The search returned no results"];
             } else {
-// test
-                NSDictionary *result = [self decodeResponseData:responseData];
                 [self returnResponseDataToView:responseData];
             }
         } else if ([responseData length] == 0 && responseError == nil){
@@ -142,6 +147,8 @@
 {
     if ([searchType isEqualToString:kSearchType_findRoutesByStopName]) {
         [self updateSearchTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
+    } else if ([searchType isEqualToString:kSearchType_findStopsByRouteId]) {
+        [self updateDetailTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     }
 }
 

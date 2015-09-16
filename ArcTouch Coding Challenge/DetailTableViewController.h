@@ -10,7 +10,7 @@
 
 @import UIKit;
 
-@interface DetailTableViewController : UITableViewController
+@interface DetailTableViewController : UITableViewController <WebAPISearchDetailsDelegate>
 
 @property (strong, nonatomic) NSNumber *routeId;
 

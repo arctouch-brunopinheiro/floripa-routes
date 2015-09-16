@@ -11,9 +11,8 @@
 @interface DetailTableViewController () {
     
     WebAPIHandler *webAPIHandler;
-    NSArray *resultRowsForSearch;
-    CGFloat heightForCell;
-    int selectedRow;
+    NSArray *rowsForRoutes;
+    NSArray *departuresForRoute;
     
 }
 
@@ -25,8 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    heightForCell = 20;
-    resultRowsForSearch = [[NSArray alloc] init];
+    rowsForRoutes = [[NSArray alloc] init];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
     [webAPIHandler findStopsByRouteId:[routeId stringValue]];
@@ -51,14 +49,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [resultRowsForSearch count];
+    return [rowsForRoutes count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsCell" forIndexPath:indexPath];
     
-    NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
+    NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
     cell.textLabel.text = [cellContent objectForKey:@"name"];
     return cell;
 }
@@ -68,15 +66,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    int row = (int)[indexPath row];
-    selectedRow = row;
     
-    heightForCell = 100;
+    NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
+    [webAPIHandler findDeparturesByRouteId:[[cellContent objectForKey:@"id"] stringValue]];
+    
     [tableView beginUpdates];
     [tableView endUpdates];
 }
 
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 50;
     if ([indexPath row] == selectedRow) {
@@ -84,14 +82,19 @@
     }
     return height;
 }
-
+*/
 
 #pragma mark - Delegates
 
 - (void)updateDetailTableViewControllerWithRows:(NSArray *)rows
 {
-    resultRowsForSearch = rows;
+    rowsForRoutes = rows;
     [self.tableView reloadData];
+}
+
+- (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures
+{
+    departuresForRoute = departures;
 }
 
 

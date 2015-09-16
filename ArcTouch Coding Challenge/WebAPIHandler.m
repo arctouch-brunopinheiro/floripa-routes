@@ -78,6 +78,13 @@
     }
 }
 
+- (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures
+{
+    if([delegate respondsToSelector:@selector(updateDetailTableViewControllerWithDepartures:)]) {
+        [delegate updateDetailTableViewControllerWithDepartures:departures];
+    }
+}
+
 #pragma mark - Create URL Request (private)
 
 - (NSString *)getAuthenticationValue
@@ -149,6 +156,8 @@
         [self updateSearchTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     } else if ([searchType isEqualToString:kSearchType_findStopsByRouteId]) {
         [self updateDetailTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
+    } else if ([searchType isEqualToString:kSearchType_findDeparturesByRouteId]) {
+        [self updateDetailTableViewControllerWithDepartures:[self prepareResponseDataForView:responseData]];
     }
 }
 

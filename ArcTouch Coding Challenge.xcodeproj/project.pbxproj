@@ -15,6 +15,7 @@
 		279A9DC31BA7966E006AAE19 /* ArcTouch_Coding_ChallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DC21BA7966E006AAE19 /* ArcTouch_Coding_ChallengeTests.m */; };
 		279A9DD41BA7996C006AAE19 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */; };
 		279A9DDC1BA7A41C006AAE19 /* WebAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DDB1BA7A41C006AAE19 /* WebAPIHandler.m */; };
+		279A9DE21BA8E665006AAE19 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 279A9DE11BA8E665006AAE19 /* SpinnerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		279A9DDB1BA7A41C006AAE19 /* WebAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebAPIHandler.m; sourceTree = "<group>"; };
 		279A9DDE1BA7BDCC006AAE19 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		279A9DDF1BA7BEC0006AAE19 /* ArcTouch-Coding-Challenge-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArcTouch-Coding-Challenge-Prefix.pch"; sourceTree = "<group>"; };
+		279A9DE01BA8E665006AAE19 /* SpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
+		279A9DE11BA8E665006AAE19 /* SpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +143,8 @@
 			children = (
 				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
 				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
+				279A9DE01BA8E665006AAE19 /* SpinnerView.h */,
+				279A9DE11BA8E665006AAE19 /* SpinnerView.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				279A9DDC1BA7A41C006AAE19 /* WebAPIHandler.m in Sources */,
 				279A9DD41BA7996C006AAE19 /* SearchTableViewController.m in Sources */,
 				279A9DAC1BA7966E006AAE19 /* AppDelegate.m in Sources */,
+				279A9DE21BA8E665006AAE19 /* SpinnerView.m in Sources */,
 				279A9DA91BA7966E006AAE19 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

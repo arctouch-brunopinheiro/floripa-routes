@@ -7,6 +7,7 @@
 //
 
 #import "SearchTableViewController.h"
+#import "SpinnerView.h"
 
 @interface SearchTableViewController ()
 
@@ -14,6 +15,7 @@
 
 @implementation SearchTableViewController {
 
+    SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
     NSArray *resultsForSearch;
     
@@ -25,8 +27,11 @@
     [super viewDidLoad];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
+
     resultsForSearch = [[NSArray alloc] init];
+    
     [self setupSearchBar];
+    spinnerView = [[SpinnerView alloc] initWithTableView:self.tableView];
     [self findRoutesByStopName];
     /*
     UIView *spinnerBackGroundView = [[UIView alloc] initWithFrame:self.tableView.frame];
@@ -108,12 +113,12 @@
 
 - (void)hideSpinnerOnSearchTableViewController
 {
-    
+    [spinnerView hideSpinner];
 }
 
 - (void)showSpinnerOnSearchTableViewController
 {
-    NSLog(@"Show Spinner");
+    [spinnerView showSpinner];
 }
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows

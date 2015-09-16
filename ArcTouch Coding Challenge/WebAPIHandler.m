@@ -26,15 +26,17 @@
 
 #pragma mark - Delegates (private)
 
-- (void)hideSpinnerOnSearchTableViewController
-{
-
-}
-
 - (void)showSpinnerOnSearchTableViewController
 {
     if([delegate respondsToSelector:@selector(showSpinnerOnSearchTableViewController)]) {
         [delegate showSpinnerOnSearchTableViewController];
+    }
+}
+
+- (void)hideSpinnerOnSearchTableViewController
+{
+    if([delegate respondsToSelector:@selector(hideSpinnerOnSearchTableViewController)]) {
+        [delegate hideSpinnerOnSearchTableViewController];
     }
 }
 
@@ -114,6 +116,7 @@
 - (void)testJSONService
 {
     [self showSpinnerOnSearchTableViewController];
+    [self hideSpinnerOnSearchTableViewController];
     /*
     NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
     NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:@"%lauro linhares%"];

@@ -10,7 +10,11 @@
 
 #import "WebAPIHandler.h"
 
-@implementation WebAPIHandler
+@implementation WebAPIHandler {
+
+    NSString *searchType;
+
+}
 
 @synthesize delegate;
 
@@ -18,6 +22,8 @@
 
 - (void)findRoutesByStopName:(NSString *)stopName
 {
+    searchType = kSearchType_findRoutesByStopName;
+    [self showSpinnerOnSearchTableViewController];
     NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
     NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:stopName];
     [self addRequestDictionary:requestDictionary ToURLRequest:request];
@@ -42,7 +48,10 @@
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
-
+    [self hideSpinnerOnSearchTableViewController];
+    if([delegate respondsToSelector:@selector(updateSearchTableViewControllerWithRows:)]) {
+        [delegate updateSearchTableViewControllerWithRows:rows];
+    }
 }
 
 #pragma mark - Create URL Request (private)
@@ -91,38 +100,56 @@
 - (void)performURLRequest:(NSMutableURLRequest *)request
 {
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *responseCode, NSData *responseData, NSError *responseError) {
-        
-        
         if ([responseData length] > 0 && responseError == nil){
-            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
+            if (![self isResponseDataContainingResults:responseData]) {
+                [self showAlertForError:@"The search returned no results"];
+            } else {
+                [self returnResponseDataToView:responseData];
+            }
         } else if ([responseData length] == 0 && responseError == nil){
-            NSLog(@"data error: %@", responseError);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error accessing the data" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
-            [alert show];
-        }else if (responseError != nil && responseError.code == NSURLErrorTimedOut){
-            NSLog(@"data timeout: %d", NSURLErrorTimedOut);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"connection timeout" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
-            [alert show];
-        }else if (responseError != nil){
-            NSLog(@"data download error: %@",responseError);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"data download error" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
-            [alert show];
+            [self showAlertForError:@"The data could not be accessed"];
+        } else if (responseError != nil && responseError.code == NSURLErrorTimedOut){
+            [self showAlertForError:@"The connection timed out"];
+        } else if (responseError != nil){
+            [self showAlertForError:@"The data could not be downloaded"];
         }
     }];
 }
 
-#pragma mark - Show Alerts
+#pragma mark - Handling URL Response (private)
 
-- (void)testJSONService
+- (void)returnResponseDataToView:(NSData *)responseData
 {
-    [self showSpinnerOnSearchTableViewController];
-    [self hideSpinnerOnSearchTableViewController];
-    /*
-    NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
-    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:@"%lauro linhares%"];
-    [self addRequestDictionary:requestDictionary ToURLRequest:request];
-    [self performURLRequest:request];
-     */
+    if ([searchType isEqualToString:kSearchType_findRoutesByStopName]) {
+        [self updateSearchTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
+    }
+}
+
+- (NSArray *)prepareResponseDataForView:(NSData *)responseData
+{
+    NSDictionary *rawResponse = [self decodeResponseData:responseData];
+    return [rawResponse objectForKey:@"rows"];
+}
+
+- (NSDictionary *)decodeResponseData:(NSData *)responseData
+{
+    return [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
+}
+
+- (BOOL)isResponseDataContainingResults:(NSData *)responseData
+{
+    BOOL isContainingResults = YES;
+    NSDictionary *rawResponse = [self decodeResponseData:responseData];
+    if ([[rawResponse objectForKey:@"rows"] count] == 0) {
+        isContainingResults = NO;
+    }
+    return isContainingResults;
+}
+
+- (void)showAlertForError:(NSString *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:error delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

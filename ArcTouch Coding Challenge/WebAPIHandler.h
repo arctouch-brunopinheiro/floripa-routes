@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) id delegate;
 
-- (void)testJSONService;
+#pragma mark - Perform Searches (public)
+
+- (void)findRoutesByStopName:(NSString *)stopName;
 
 @end

@@ -32,7 +32,7 @@
     
     [self setupSearchBar];
     spinnerView = [[SpinnerView alloc] initWithTableView:self.tableView];
-    [self findRoutesByStopName];
+    //[self findRoutesByStopName];
     /*
     UIView *spinnerBackGroundView = [[UIView alloc] initWithFrame:self.tableView.frame];
     spinnerBackGroundView.backgroundColor = [UIColor blackColor];
@@ -123,7 +123,7 @@
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
-    
+    NSLog(@"%@", rows);
 }
 
 #pragma mark - Search Bar
@@ -140,17 +140,15 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSString *searchString = searchBar.text;
-    // update celldata array
-    //
-    NSLog(@"SEARCHED FOR: %@", searchString);
+    NSString *searchString = [self prepareSearchTextForSearch:searchBar.text];
+    [webAPIHandler findRoutesByStopName:searchString];
 }
 
-#pragma mark - Web API
+#pragma mark - Helpers
 
-- (void)findRoutesByStopName
+- (NSString *)prepareSearchTextForSearch:(NSString *)searchText
 {
-    [webAPIHandler testJSONService];
+    return [NSString stringWithFormat:@"%%%@%%", searchText];
 }
 
 @end

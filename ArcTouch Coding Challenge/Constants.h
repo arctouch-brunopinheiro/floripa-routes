@@ -9,10 +9,11 @@
 #ifndef ArcTouch_Coding_Challenge_Constants_h
 #define ArcTouch_Coding_Challenge_Constants_h
 
-#define kUrl_findRoutesByStopName @"https://api.appglu.com/v1/queries/findRoutesByStopName/run"
-#define kUsername @"WKD4N7YMA1uiM8V"
-#define kPassword @"DtdTtzMLQlA0hk2C1Yi5pLyVIlAQ68"
 #define kCustomHeaderField @"X-AppGlu-Environment"
 #define kCustomHeaderValue @"staging"
+#define kPassword @"DtdTtzMLQlA0hk2C1Yi5pLyVIlAQ68"
+#define kSearchType_findRoutesByStopName @"findRoutesByStopName"
+#define kUrl_findRoutesByStopName @"https://api.appglu.com/v1/queries/findRoutesByStopName/run"
+#define kUsername @"WKD4N7YMA1uiM8V"
 
 #endif

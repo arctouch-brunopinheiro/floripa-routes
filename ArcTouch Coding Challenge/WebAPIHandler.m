@@ -66,7 +66,6 @@
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
-    [self hideSpinnerOnSearchTableViewController];
     if([delegate respondsToSelector:@selector(updateSearchTableViewControllerWithRows:)]) {
         [delegate updateSearchTableViewControllerWithRows:rows];
     }
@@ -131,6 +130,7 @@
             } else {
                 [self returnResponseDataToView:responseData];
             }
+            [self hideSpinnerOnSearchTableViewController];
         } else if ([responseData length] == 0 && responseError == nil){
             [self showAlertForError:@"The data could not be accessed"];
         } else if (responseError != nil && responseError.code == NSURLErrorTimedOut){

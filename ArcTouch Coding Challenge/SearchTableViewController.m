@@ -58,7 +58,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     DetailTableViewController *destinationViewController = [segue destinationViewController];
-    destinationViewController.idForRoute = [cellContent objectForKey:@"id"];
+    destinationViewController.routeId = [cellContent objectForKey:@"id"];
 }
 
 #pragma mark - Delegates

@@ -12,6 +12,6 @@
 
 @interface DetailTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSNumber *idForRoute;
+@property (strong, nonatomic) NSNumber *routeId;
 
 @end

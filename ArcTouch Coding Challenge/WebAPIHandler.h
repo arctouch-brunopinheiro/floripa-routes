@@ -23,5 +23,7 @@
 #pragma mark - Perform Searches (public)
 
 - (void)findRoutesByStopName:(NSString *)stopName;
+- (void)findDeparturesByRouteId:(NSString *)routeId;
+- (void)findStopsByRouteId:(NSString *)routeId;
 
 @end

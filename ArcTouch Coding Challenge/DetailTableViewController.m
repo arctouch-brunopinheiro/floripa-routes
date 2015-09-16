@@ -18,12 +18,13 @@
 
 @implementation DetailTableViewController
 
-@synthesize idForRoute;
+@synthesize routeId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
+    [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

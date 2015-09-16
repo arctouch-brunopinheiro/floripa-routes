@@ -25,7 +25,25 @@
     searchType = kSearchType_findRoutesByStopName;
     [self showSpinnerOnSearchTableViewController];
     NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
-    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForStopName:stopName];
+    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForParam:stopName ForKey:kKeyStopName];
+    [self addRequestDictionary:requestDictionary ToURLRequest:request];
+    [self performURLRequest:request];
+}
+
+- (void)findDeparturesByRouteId:(NSString *)routeId
+{
+    searchType = kSearchType_findDeparturesByRouteId;
+    NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findDeparturesByRouteId];
+    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForParam:routeId ForKey:kKeyRouteId];
+    [self addRequestDictionary:requestDictionary ToURLRequest:request];
+    [self performURLRequest:request];
+}
+
+- (void)findStopsByRouteId:(NSString *)routeId
+{
+    searchType = kSearchType_findStopsByRouteId;
+    NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findStopsByRouteId];
+    NSMutableDictionary *requestDictionary = [self getRequestDictionaryForParam:routeId ForKey:kKeyRouteId];
     [self addRequestDictionary:requestDictionary ToURLRequest:request];
     [self performURLRequest:request];
 }
@@ -86,10 +104,10 @@
     [request setHTTPBody:jsonData];
 }
 
-- (NSMutableDictionary *)getRequestDictionaryForStopName:(NSString *)stopName
+- (NSMutableDictionary *)getRequestDictionaryForParam:(NSString *)param ForKey:(NSString *)key
 {
     NSMutableDictionary *paramsDictionary = [[NSMutableDictionary alloc] init];
-    [paramsDictionary setObject:stopName forKey:@"stopName"];
+    [paramsDictionary setObject:param forKey:key];
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setObject:paramsDictionary forKey:@"params"];
     return requestDictionary;
@@ -104,6 +122,8 @@
             if (![self isResponseDataContainingResults:responseData]) {
                 [self showAlertForError:@"The search returned no results"];
             } else {
+// test
+                NSDictionary *result = [self decodeResponseData:responseData];
                 [self returnResponseDataToView:responseData];
             }
         } else if ([responseData length] == 0 && responseError == nil){

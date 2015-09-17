@@ -37,7 +37,6 @@
     [self.view addSubview:scrollView];
     [self setupSpinnerView];
     [self setTitleForNavigationBar];
-    [self drawHeaders];
     [self setupWebAPIHandler];
     [spinnerView showSpinner];
     [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
@@ -194,6 +193,7 @@
 {
     [spinnerView hideSpinner];
     [self separateRowsToDepartureArrays:rows];
+    [self drawHeaders];
     [self drawDeparturesForWeekdays];
     [self drawDeparturesForSaturdays];
     [self drawDeparturesForSundays];

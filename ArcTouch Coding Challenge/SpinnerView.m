@@ -33,7 +33,7 @@
 {
     dimView = [[UIView alloc] initWithFrame:parentView.frame];
     dimView.backgroundColor = [UIColor whiteColor];
-    dimView.alpha = 0.5;
+    dimView.alpha = 0.75;
     [dimView addSubview:[self getLabel]];
 }
 

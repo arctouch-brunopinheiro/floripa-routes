@@ -24,6 +24,10 @@
 #define kLabelMargin 5
 #define kTitleDepartures @"Departures"
 
+#pragma mark - Search View
+
+#define kTitleSearchRoutes @"Search Routes"
+
 #pragma mark - Spinner
 
 #define kSpinnerLabelText @"fetching data.."

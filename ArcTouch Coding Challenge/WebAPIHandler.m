@@ -23,7 +23,6 @@
 - (void)findRoutesByStopName:(NSString *)stopName
 {
     searchType = kSearchType_findRoutesByStopName;
-    [self showSpinnerOnSearchTableViewController];
     NSMutableURLRequest *request = [self getMutableURLRequest:kUrl_findRoutesByStopName];
     NSMutableDictionary *requestDictionary = [self getRequestDictionaryForParam:stopName ForKey:kKeyStopName];
     [self addRequestDictionary:requestDictionary ToURLRequest:request];
@@ -49,20 +48,6 @@
 }
 
 #pragma mark - Delegates (private)
-
-- (void)showSpinnerOnSearchTableViewController
-{
-    if([delegate respondsToSelector:@selector(showSpinnerOnSearchTableViewController)]) {
-        [delegate showSpinnerOnSearchTableViewController];
-    }
-}
-
-- (void)hideSpinnerOnSearchTableViewController
-{
-    if([delegate respondsToSelector:@selector(hideSpinnerOnSearchTableViewController)]) {
-        [delegate hideSpinnerOnSearchTableViewController];
-    }
-}
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
@@ -145,7 +130,6 @@
             } else {
                 [self returnResponseDataToView:responseData];
             }
-            [self hideSpinnerOnSearchTableViewController];
         } else if ([responseData length] == 0 && responseError == nil){
             [self showAlertForError:@"The data could not be accessed"];
             [self requestDidFail];

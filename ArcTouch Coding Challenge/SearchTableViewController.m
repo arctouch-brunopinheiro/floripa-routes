@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self setTitleForNavigationBar];
     [self setupWebAPIHandler];
     [self setupSearchController];
     [self setupSpinnerView];
@@ -34,6 +35,12 @@
 }
 
 #pragma mark - Setup
+
+- (void)setTitleForNavigationBar
+{
+    self.navigationItem.title = kTitleSearchRoutes;
+}
+
 
 - (void)setupWebAPIHandler
 {
@@ -91,14 +98,12 @@
 
 #pragma mark - Delegates
 
-- (void)hideSpinnerOnSearchTableViewController
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    //[spinnerView hideSpinner];
-}
-
-- (void)showSpinnerOnSearchTableViewController
-{
-    //[spinnerView showSpinner];
+    NSString *searchString = [self prepareSearchTextForSearch:searchBar.text];
+    [self.searchController setActive:NO];
+    [spinnerView showSpinner];
+    [webAPIHandler findRoutesByStopName:searchString];
 }
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
@@ -106,6 +111,11 @@
     [spinnerView hideSpinner];
     resultRowsForSearch = rows;
     [self.tableView reloadData];
+}
+
+- (void)requestDidFail
+{
+    [spinnerView hideSpinner];
 }
 
 #pragma mark - Search Bar
@@ -130,14 +140,6 @@
     [controller.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [controller.searchBar setBackgroundImage:[UIImage imageWithCGImage:(__bridge CGImageRef)([UIColor clearColor])]];
     controller.searchBar.tintColor = self.navigationController.navigationBar.barTintColor;
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    NSString *searchString = [self prepareSearchTextForSearch:searchBar.text];
-    [self.searchController setActive:NO];
-    [spinnerView showSpinner];
-    [webAPIHandler findRoutesByStopName:searchString];
 }
 
 - (NSString *)prepareSearchTextForSearch:(NSString *)searchText

@@ -10,9 +10,8 @@
 
 @protocol WebAPISearchDelegate <NSObject>
 
-- (void)hideSpinnerOnSearchTableViewController;
-- (void)showSpinnerOnSearchTableViewController;
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows;
+- (void)requestDidFail;
 
 @end
 

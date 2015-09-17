@@ -25,6 +25,7 @@
 @synthesize searchController;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
@@ -92,16 +93,19 @@
 - (void)setupSearchBar
 {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    //self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
     [self.searchController.searchBar sizeToFit];
+    [searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    [searchController.searchBar setBackgroundImage:[UIImage imageWithCGImage:(__bridge CGImageRef)([UIColor clearColor])]];
+    searchController.searchBar.tintColor = self.navigationController.navigationBar.barTintColor;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSString *searchString = [self prepareSearchTextForSearch:searchBar.text];
+    [self.searchController setActive:NO];
     [webAPIHandler findRoutesByStopName:searchString];
 }
 

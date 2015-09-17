@@ -7,13 +7,14 @@
 //
 
 #import "DeparturesViewController.h"
+#import "SpinnerView.h"
 #import "StopsTableViewController.h"
 
 @interface StopsTableViewController () {
     
+    SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
-    NSArray *rowsForRoutes;
-    NSArray *departuresForRoute;
+    NSArray *rowsForStops;
     int departureCellRow;
     int departureCellColumn;
     
@@ -25,20 +26,39 @@
 
 @synthesize routeId;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.tableView.allowsSelection = NO;
-    self.tableView.contentInset = UIEdgeInsetsMake(44,0,0,0); // change to only once
     [self setTitleForNavigationBar];
-    rowsForRoutes = [[NSArray alloc] init];
-    webAPIHandler = [[WebAPIHandler alloc] init];
-    webAPIHandler.delegate = self;
+    [self setupWebAPIHandler];
+    [self setupSpinnerView];
+    [self setupRowsForStops];
+    [spinnerView showSpinner];
     [webAPIHandler findStopsByRouteId:[routeId stringValue]];
 }
+
+#pragma mark - Setup
 
 - (void)setTitleForNavigationBar
 {
     self.navigationItem.title = @"Stops";
+}
+
+- (void)setupWebAPIHandler
+{
+    webAPIHandler = [[WebAPIHandler alloc] init];
+    webAPIHandler.delegate = self;
+}
+
+- (void)setupSpinnerView
+{
+    spinnerView = [[SpinnerView alloc] initWithView:self.view];
+}
+
+- (void)setupRowsForStops
+{
+    rowsForStops = [[NSArray alloc] init];
 }
 
 #pragma mark - Table View Data Source
@@ -50,15 +70,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [rowsForRoutes count];
+    return [rowsForStops count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsCell" forIndexPath:indexPath];
     
-    NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
+    NSDictionary *cellContent = [rowsForStops objectAtIndex:indexPath.row];
     cell.textLabel.text = [cellContent objectForKey:@"name"];
-    cell.textLabel.font = [UIFont systemFontOfSize:kCellLabelFontSize];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     return cell;
 }
 
@@ -74,8 +95,8 @@
 
 - (void)updateStopsTableViewControllerWithRows:(NSArray *)rows
 {
-    rowsForRoutes = rows;
-    [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
+    [spinnerView hideSpinner];
+    rowsForStops = rows;
     [self.tableView reloadData];
 }
 

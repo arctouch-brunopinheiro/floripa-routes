@@ -9,10 +9,6 @@
 #ifndef ArcTouch_Coding_Challenge_Constants_h
 #define ArcTouch_Coding_Challenge_Constants_h
 
-#pragma mark - Cells
-
-#define kCellLabelFontSize 14
-
 #pragma mark - Departures View
 
 #define kDeparturesLabelFontSize 12
@@ -26,7 +22,9 @@
 
 #pragma mark - Search View
 
+#define kSearchCellLabelFontSize 14
 #define kTitleSearchRoutes @"Search Routes"
+#define kSearchCellIdentifier @"SearchCell"
 
 #pragma mark - Spinner
 
@@ -37,7 +35,9 @@
 
 #define kCustomHeaderField @"X-AppGlu-Environment"
 #define kCustomHeaderValue @"staging"
+#define kKeyId @"id"
 #define kKeyCalendar @"calendar"
+#define kKeyLongName @"longName"
 #define kKeyRouteId @"routeId"
 #define kKeySaturday @"SATURDAY"
 #define kKeySunday @"SUNDAY"

@@ -24,7 +24,8 @@
 
 @synthesize searchController;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     
     [super viewDidLoad];
     [self setTitleForNavigationBar];
@@ -41,27 +42,28 @@
     self.navigationItem.title = kTitleSearchRoutes;
 }
 
-
 - (void)setupWebAPIHandler
 {
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
 }
 
-- (void)setupResultsForSearch
+- (void)setupSearchController
 {
-    resultRowsForSearch = [[NSArray alloc] init];
+    searchController = [self getSearchController];
+    self.tableView.tableHeaderView = searchController.searchBar;
 }
+
+
 
 - (void)setupSpinnerView
 {
     spinnerView = [[SpinnerView alloc] initWithView:self.view];
 }
 
-- (void)setupSearchController
+- (void)setupResultsForSearch
 {
-    searchController = [self getSearchController];
-    self.tableView.tableHeaderView = searchController.searchBar;
+    resultRowsForSearch = [[NSArray alloc] init];
 }
 
 #pragma mark - Table view data source
@@ -78,10 +80,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSearchCellIdentifier forIndexPath:indexPath];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
-    cell.textLabel.text = [cellContent objectForKey:@"longName"];
-    cell.textLabel.font = [UIFont systemFontOfSize:kCellLabelFontSize];
+    cell.textLabel.text = [cellContent objectForKey:kKeyLongName];
+    cell.textLabel.font = [UIFont systemFontOfSize:kSearchCellLabelFontSize];
     return cell;
 }
 
@@ -93,7 +95,7 @@
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     UINavigationController *navController = [segue destinationViewController];
     StopsTableViewController *stopsTableViewController = (StopsTableViewController *)([navController viewControllers][0]);
-    stopsTableViewController.routeId = [cellContent objectForKey:@"id"];
+    stopsTableViewController.routeId = [cellContent objectForKey:kKeyId];
 }
 
 #pragma mark - Delegates

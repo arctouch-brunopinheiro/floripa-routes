@@ -7,7 +7,6 @@
 //
 
 #import "DeparturesViewController.h"
-#import "WebAPIHandler.h"
 
 @interface DeparturesViewController ()
 
@@ -62,6 +61,20 @@
     int labelPositionX = 10 + (currentColumn * (labelWidth + 10));
     int labelPositionY = 30 + self.navigationController.navigationBar.frame.size.height + (currentRow * (labelHeight + 10));
     return CGRectMake(labelPositionX,  labelPositionY, labelWidth, labelHeight);
+}
+
+#pragma mark - Rows Dictionaries
+
+- (void)loadRowsDictionariesFromRows:(NSArray *)rows
+{
+
+}
+
+#pragma mark - Delegates
+
+- (void)updateDeparturesViewControllerWithRows:(NSArray *)rows
+{
+
 }
 
 @end

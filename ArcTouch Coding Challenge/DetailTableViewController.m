@@ -128,10 +128,4 @@
     [self.tableView reloadData];
 }
 
-- (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures
-{
-    [self addDeparturesToSelectedCell:departures];
-}
-
-
 @end

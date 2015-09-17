@@ -78,10 +78,10 @@
     }
 }
 
-- (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures
+- (void)updateDeparturesViewControllerWithRows:(NSArray *)rows
 {
-    if([delegate respondsToSelector:@selector(updateDetailTableViewControllerWithDepartures:)]) {
-        [delegate updateDetailTableViewControllerWithDepartures:departures];
+    if([delegate respondsToSelector:@selector(updateDeparturesViewControllerWithRows:)]) {
+        [delegate updateDeparturesViewControllerWithRows:rows];
     }
 }
 
@@ -157,7 +157,7 @@
     } else if ([searchType isEqualToString:kSearchType_findStopsByRouteId]) {
         [self updateDetailTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     } else if ([searchType isEqualToString:kSearchType_findDeparturesByRouteId]) {
-        [self updateDetailTableViewControllerWithDepartures:[self prepareResponseDataForView:responseData]];
+        [self updateDeparturesViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     }
 }
 

@@ -19,7 +19,12 @@
 @protocol WebAPISearchDetailsDelegate <NSObject>
 
 - (void)updateDetailTableViewControllerWithRows:(NSArray *)rows;
-- (void)updateDetailTableViewControllerWithDepartures:(NSArray *)departures;
+
+@end
+
+@protocol WebAPIDeparturesDelegate <NSObject>
+
+- (void)updateDeparturesViewControllerWithRows:(NSArray *)rows;
 
 @end
 

@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
+#import "WebAPIHandler.h"
+
 @import UIKit;
 
-@interface DeparturesViewController : UIViewController
+@interface DeparturesViewController : UIViewController <WebAPIDeparturesDelegate>
 
 @property (strong, nonatomic) NSNumber *routeId;
 

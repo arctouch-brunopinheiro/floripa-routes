@@ -25,6 +25,7 @@
 @protocol WebAPIDeparturesDelegate <NSObject>
 
 - (void)updateDeparturesViewControllerWithRows:(NSArray *)rows;
+- (void)requestDidFail;
 
 @end
 

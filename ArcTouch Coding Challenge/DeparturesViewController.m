@@ -199,4 +199,9 @@
     [self drawDeparturesForSundays];
 }
 
+- (void)requestDidFail
+{
+    [spinnerView hideSpinner];
+}
+
 @end

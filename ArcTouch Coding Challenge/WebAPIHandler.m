@@ -85,6 +85,13 @@
     }
 }
 
+- (void)requestDidFail
+{
+    if([delegate respondsToSelector:@selector(requestDidFail)]) {
+        [delegate requestDidFail];
+    }
+}
+
 #pragma mark - Create URL Request (private)
 
 - (NSString *)getAuthenticationValue
@@ -134,16 +141,20 @@
         if ([responseData length] > 0 && responseError == nil){
             if (![self isResponseDataContainingResults:responseData]) {
                 [self showAlertForError:@"The search returned no results"];
+                [self requestDidFail];
             } else {
                 [self returnResponseDataToView:responseData];
             }
             [self hideSpinnerOnSearchTableViewController];
         } else if ([responseData length] == 0 && responseError == nil){
             [self showAlertForError:@"The data could not be accessed"];
+            [self requestDidFail];
         } else if (responseError != nil && responseError.code == NSURLErrorTimedOut){
             [self showAlertForError:@"The connection timed out"];
+            [self requestDidFail];
         } else if (responseError != nil){
             [self showAlertForError:@"The data could not be downloaded"];
+            [self requestDidFail];
         }
     }];
 }

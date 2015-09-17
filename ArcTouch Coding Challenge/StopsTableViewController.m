@@ -42,7 +42,7 @@
 
 - (void)setTitleForNavigationBar
 {
-    self.navigationItem.title = @"Stops";
+    self.navigationItem.title = kTitleStops;
 }
 
 - (void)setupWebAPIHandler
@@ -75,11 +75,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detailsCell" forIndexPath:indexPath];
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStopsCellIdentifer forIndexPath:indexPath];
     NSDictionary *cellContent = [rowsForStops objectAtIndex:indexPath.row];
-    cell.textLabel.text = [cellContent objectForKey:@"name"];
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    cell.textLabel.text = [cellContent objectForKey:kKeyName];
+    cell.textLabel.font = [UIFont systemFontOfSize:kStopsCellLabelFontSize];
     return cell;
 }
 

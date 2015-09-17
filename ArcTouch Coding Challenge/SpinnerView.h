@@ -13,7 +13,6 @@
 
 #pragma mark - Setup (public)
 
-//- (id)initWithTableView:(UITableView *)tableViewForInstance;
 - (id)initWithView:(UIView *)viewForInstance;
 
 #pragma mark - Show/Hide Spinner (public)

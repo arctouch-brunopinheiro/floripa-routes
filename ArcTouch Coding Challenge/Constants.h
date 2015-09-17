@@ -23,13 +23,19 @@
 #pragma mark - Search View
 
 #define kSearchCellLabelFontSize 14
-#define kTitleSearchRoutes @"Search Routes"
 #define kSearchCellIdentifier @"SearchCell"
+#define kTitleSearchRoutes @"Search Routes"
 
 #pragma mark - Spinner
 
 #define kSpinnerLabelText @"fetching data.."
 #define kSpinnerLabelTopMargin 25
+
+#pragma mark - Stops View
+
+#define kStopsCellLabelFontSize 12
+#define kStopsCellIdentifer @"StopsCell"
+#define kTitleStops @"Stops"
 
 #pragma mark - Web API
 
@@ -38,6 +44,7 @@
 #define kKeyId @"id"
 #define kKeyCalendar @"calendar"
 #define kKeyLongName @"longName"
+#define kKeyName @"name"
 #define kKeyRouteId @"routeId"
 #define kKeySaturday @"SATURDAY"
 #define kKeySunday @"SUNDAY"

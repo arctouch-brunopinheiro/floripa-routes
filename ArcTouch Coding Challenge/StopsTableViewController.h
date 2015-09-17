@@ -10,7 +10,7 @@
 
 @import UIKit;
 
-@interface StopsTableViewController : UITableViewController <WebAPISearchDetailsDelegate>
+@interface StopsTableViewController : UITableViewController <WebAPIStopsDelegate>
 
 @property (strong, nonatomic) NSNumber *routeId;
 

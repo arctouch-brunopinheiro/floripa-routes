@@ -16,9 +16,9 @@
 
 @end
 
-@protocol WebAPISearchDetailsDelegate <NSObject>
+@protocol WebAPIStopsDelegate <NSObject>
 
-- (void)updateDetailTableViewControllerWithRows:(NSArray *)rows;
+- (void)updateStopsTableViewControllerWithRows:(NSArray *)rows;
 
 @end
 

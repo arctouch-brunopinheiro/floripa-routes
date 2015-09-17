@@ -147,12 +147,12 @@
 		279A9DD91BA7A165006AAE19 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
+				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
 				279A9DE31BA8FFA7006AAE19 /* StopsTableViewController.h */,
 				279A9DE41BA8FFA7006AAE19 /* StopsTableViewController.m */,
 				279A9DE61BAA2F0F006AAE19 /* DeparturesViewController.h */,
 				279A9DE71BAA2F0F006AAE19 /* DeparturesViewController.m */,
-				279A9DD21BA7996C006AAE19 /* SearchTableViewController.h */,
-				279A9DD31BA7996C006AAE19 /* SearchTableViewController.m */,
 				279A9DE01BA8E665006AAE19 /* SpinnerView.h */,
 				279A9DE11BA8E665006AAE19 /* SpinnerView.m */,
 			);

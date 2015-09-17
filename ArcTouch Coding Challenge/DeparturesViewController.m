@@ -7,31 +7,61 @@
 //
 
 #import "DeparturesViewController.h"
+#import "WebAPIHandler.h"
 
 @interface DeparturesViewController ()
 
 @end
 
-@implementation DeparturesViewController
+@implementation DeparturesViewController {
+
+    WebAPIHandler *webAPIHandler;
+    int currentRow;
+    int currentColumn;
+    
+}
+
+@synthesize routeId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    webAPIHandler = [[WebAPIHandler alloc] init];
+    webAPIHandler.delegate = self;
+    [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
+    [self drawHeaderLabels];
+    NSLog(@"ROUTEID %@", routeId);
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)drawHeaderLabels
+{
+    currentRow = 0;
+    NSArray *headers = @[@"Weekdays", @"Saturdays", @"Sundays"];
+    for (int i = 0; i < [headers count]; i++) {
+        currentColumn = i;
+        UILabel *headerLabel = [self getCurrentLabel];
+        headerLabel.backgroundColor = [UIColor redColor];
+        headerLabel.text = [headers objectAtIndex:i];
+        headerLabel.textAlignment = NSTextAlignmentCenter;
+        headerLabel.font = [UIFont boldSystemFontOfSize:14];
+        [self.view addSubview:headerLabel];
+    }
+    currentRow++;
+    currentColumn = 0;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UILabel *)getCurrentLabel
+{
+    return [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
 }
-*/
+
+- (CGRect)getFrameForCurrentLabel
+{
+    int labelWidth = (self.view.frame.size.width - 40) / 3;
+    int labelHeight = 20;
+    int labelPositionX = 10 + (currentColumn * (labelWidth + 10));
+    int labelPositionY = 30 + self.navigationController.navigationBar.frame.size.height + (currentRow * (labelHeight + 10));
+    return CGRectMake(labelPositionX,  labelPositionY, labelWidth, labelHeight);
+}
 
 @end

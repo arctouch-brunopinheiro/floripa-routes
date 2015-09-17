@@ -34,7 +34,7 @@
             </objects>
             <point key="canvasLocation" x="838" y="-1194"/>
         </scene>
-        <!--Detail Table View Controller-->
+        <!--Stops-->
         <scene sceneID="AYq-b6-s2f">
             <objects>
                 <tableViewController id="OfF-Ho-V09" customClass="DetailTableViewController" sceneMemberID="viewController">
@@ -55,8 +55,8 @@
                             <outlet property="delegate" destination="OfF-Ho-V09" id="RGl-Ii-pfm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="zNh-oA-4cK">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="bl6-Wp-bdh">
+                    <navigationItem key="navigationItem" title="Stops" id="zNh-oA-4cK">
+                        <barButtonItem key="rightBarButtonItem" title="Departures" id="bl6-Wp-bdh">
                             <connections>
                                 <segue destination="luF-SX-FFn" kind="show" id="kwx-Nz-35b"/>
                             </connections>
@@ -67,10 +67,10 @@
             </objects>
             <point key="canvasLocation" x="1548" y="-462"/>
         </scene>
-        <!--View Controller-->
+        <!--Departures View Controller-->
         <scene sceneID="mwQ-Ej-8gf">
             <objects>
-                <viewController id="luF-SX-FFn" sceneMemberID="viewController">
+                <viewController id="luF-SX-FFn" customClass="DeparturesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rjZ-X4-LOW"/>
                         <viewControllerLayoutGuide type="bottom" id="XxQ-LF-evK"/>
@@ -112,6 +112,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iqN-mT-U1g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.45882352939999999" green="0.69411764710000001" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

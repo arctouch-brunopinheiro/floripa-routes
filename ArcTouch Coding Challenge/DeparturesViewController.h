@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface DeparturesViewController : UIViewController
+
+@property (strong, nonatomic) NSNumber *routeId;
 
 @end

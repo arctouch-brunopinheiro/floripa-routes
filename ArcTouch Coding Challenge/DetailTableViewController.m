@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
+#import "DeparturesViewController.h"
 #import "DetailTableViewController.h"
 
 @interface DetailTableViewController () {
@@ -70,7 +71,7 @@
     //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
-    [webAPIHandler findDeparturesByRouteId:[[cellContent objectForKey:@"id"] stringValue]];
+    //[webAPIHandler findDeparturesByRouteId:[[cellContent objectForKey:@"id"] stringValue]];
     
 
 }
@@ -108,6 +109,14 @@
     int labelPositionX = 10 + (departureCellColumn * (labelWidth + 10));
     int labelPositionY = 10 + (departureCellRow + (labelHeight + 10));
     return CGRectMake(labelPositionX, labelPositionY, labelWidth, labelHeight);
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    DeparturesViewController *departuresViewController = [segue destinationViewController];
+    departuresViewController.routeId = routeId;
 }
 
 #pragma mark - Delegates

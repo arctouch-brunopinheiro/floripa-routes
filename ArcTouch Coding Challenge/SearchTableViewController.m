@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
-#import "DetailTableViewController.h"
+#import "StopsTableViewController.h"
 #import "SearchTableViewController.h"
 #import "SpinnerView.h"
 
@@ -61,12 +61,12 @@
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     
     UINavigationController *navController = [segue destinationViewController];
-    DetailTableViewController *detailsTableViewController = (DetailTableViewController *)([navController viewControllers][0]);
+    StopsTableViewController *stopsTableViewController = (StopsTableViewController *)([navController viewControllers][0]);
     
 
     
     //DetailTableViewController *destinationViewController = [segue destinationViewController];
-    detailsTableViewController.routeId = [cellContent objectForKey:@"id"];
+    stopsTableViewController.routeId = [cellContent objectForKey:@"id"];
 }
 
 #pragma mark - Delegates

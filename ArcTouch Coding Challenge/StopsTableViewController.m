@@ -1,5 +1,5 @@
 //
-//  DetailTableViewController.m
+//  StopsTableViewController.m
 //  ArcTouch Coding Challenge
 //
 //  Created by Mike Quade on 9/15/15.
@@ -7,9 +7,9 @@
 //
 
 #import "DeparturesViewController.h"
-#import "DetailTableViewController.h"
+#import "StopsTableViewController.h"
 
-@interface DetailTableViewController () {
+@interface StopsTableViewController () {
     
     WebAPIHandler *webAPIHandler;
     NSArray *rowsForRoutes;
@@ -21,12 +21,13 @@
 
 @end
 
-@implementation DetailTableViewController
+@implementation StopsTableViewController
 
 @synthesize routeId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTitleForNavigationBar];
     rowsForRoutes = [[NSArray alloc] init];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
@@ -38,9 +39,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setTitleForNavigationBar
+{
+    self.navigationItem.title = @"Stops";
 }
 
 #pragma mark - Table View Data Source

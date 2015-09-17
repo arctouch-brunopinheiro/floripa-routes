@@ -1,5 +1,5 @@
 //
-//  DetailTableViewController.h
+//  StopsTableViewController.h
 //  ArcTouch Coding Challenge
 //
 //  Created by Mike Quade on 9/15/15.
@@ -10,7 +10,7 @@
 
 @import UIKit;
 
-@interface DetailTableViewController : UITableViewController <WebAPISearchDetailsDelegate>
+@interface StopsTableViewController : UITableViewController <WebAPISearchDetailsDelegate>
 
 @property (strong, nonatomic) NSNumber *routeId;
 

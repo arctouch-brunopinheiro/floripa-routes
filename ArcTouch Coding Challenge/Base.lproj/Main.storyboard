@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="838" y="-1194"/>
         </scene>
-        <!--Stops-->
+        <!--Stops Table View Controller-->
         <scene sceneID="AYq-b6-s2f">
             <objects>
-                <tableViewController id="OfF-Ho-V09" customClass="DetailTableViewController" sceneMemberID="viewController">
+                <tableViewController id="OfF-Ho-V09" customClass="StopsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Njf-fW-IBy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
                             <outlet property="delegate" destination="OfF-Ho-V09" id="RGl-Ii-pfm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Stops" id="zNh-oA-4cK">
+                    <navigationItem key="navigationItem" id="zNh-oA-4cK">
                         <barButtonItem key="rightBarButtonItem" title="Departures" id="bl6-Wp-bdh">
                             <connections>
                                 <segue destination="luF-SX-FFn" kind="show" id="kwx-Nz-35b"/>

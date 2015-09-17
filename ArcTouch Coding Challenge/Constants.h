@@ -9,6 +9,13 @@
 #ifndef ArcTouch_Coding_Challenge_Constants_h
 #define ArcTouch_Coding_Challenge_Constants_h
 
+#pragma mark - Departures View
+
+#define kLabelHeight 20
+#define kLabelMargin 5
+
+#pragma mark - Web API
+
 #define kCustomHeaderField @"X-AppGlu-Environment"
 #define kCustomHeaderValue @"staging"
 #define kKeyRouteId @"routeId"

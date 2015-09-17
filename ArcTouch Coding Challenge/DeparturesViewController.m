@@ -33,55 +33,106 @@
     scrollView.scrollEnabled=YES;
     scrollView.userInteractionEnabled=YES;
     [self.view addSubview:scrollView];
-    [self drawHeaderLabels];
+    [self drawHeaders];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
     [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
 }
 
-- (void)drawHeaderLabels
+- (void)drawHeaders
 {
     currentRow = 0;
     NSArray *headers = @[@"Weekdays", @"Saturdays", @"Sundays"];
     for (int i = 0; i < [headers count]; i++) {
         currentColumn = i;
-        UILabel *headerLabel = [self getCurrentLabel];
-        headerLabel.backgroundColor = [UIColor redColor];
-        headerLabel.text = [headers objectAtIndex:i];
-        headerLabel.textAlignment = NSTextAlignmentCenter;
-        headerLabel.font = [UIFont boldSystemFontOfSize:14];
-        [scrollView addSubview:headerLabel];
+        UILabel *label = [self getFormattedLabelForHeaders];
+        label.text = [headers objectAtIndex:i];
+        [scrollView addSubview:label];
     }
-    currentRow++;
-    currentColumn = 0;
 }
 
-- (void)drawWeekdayDepartures
+- (void)drawDeparturesForWeekdays
 {
-    currentRow = 1;
+    currentColumn = 0;
     for (int i = 0; i < [departuresForWeekdays count]; i++) {
-        currentRow = i;
-        UILabel *headerLabel = [self getCurrentLabel];
-        headerLabel.backgroundColor = [UIColor yellowColor];
-        headerLabel.text = [[departuresForWeekdays objectAtIndex:i] objectForKey:@"time"];
-        headerLabel.textAlignment = NSTextAlignmentCenter;
-        [scrollView addSubview:headerLabel];
+        currentRow = i + 1;
+        UILabel *label = [self getFormattedLabelForDepartures];
+        label.text = [[departuresForWeekdays objectAtIndex:i] objectForKey:@"time"];
+        [scrollView addSubview:label];
+        if (i == ([departuresForWeekdays count] - 1)) {
+            CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
+            [self updateHeightForScrollView:scrollViewHeight];
+        }
     }
 }
+
+- (void)drawDeparturesForSaturdays
+{
+    currentColumn = 1;
+    for (int i = 0; i < [departuresForSaturdays count]; i++) {
+        currentRow = i + 1;
+        UILabel *label = [self getFormattedLabelForDepartures];
+        label.text = [[departuresForSaturdays objectAtIndex:i] objectForKey:@"time"];
+        [scrollView addSubview:label];
+        if (i == ([departuresForSaturdays count] - 1)) {
+            CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
+            [self updateHeightForScrollView:scrollViewHeight];
+        }
+    }
+}
+
+- (void)drawDeparturesForSundays
+{
+    currentColumn = 2;
+    for (int i = 0; i < [departuresForSundays count]; i++) {
+        currentRow = i + 1;
+        UILabel *label = [self getFormattedLabelForDepartures];
+        label.text = [[departuresForSundays objectAtIndex:i] objectForKey:@"time"];
+        [scrollView addSubview:label];
+        if (i == ([departuresForSundays count] - 1)) {
+            CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
+            [self updateHeightForScrollView:scrollViewHeight];
+        }
+    }
+}
+
+- (void)updateHeightForScrollView:(CGFloat)height
+{
+    if (scrollView.contentSize.height < height) {
+        scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, height);
+    }
+}
+
+#pragma mark - Labels
 
 - (UILabel *)getCurrentLabel
 {
     return [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
 }
 
+- (UILabel *)getFormattedLabelForHeaders
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
+    label.font = [UIFont systemFontOfSize:14];
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
+}
+
+- (UILabel *)getFormattedLabelForDepartures
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
+    label.font = [UIFont systemFontOfSize:12];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor darkGrayColor];
+    return label;
+}
+
 - (CGRect)getFrameForCurrentLabel
 {
-    int labelWidth = (self.view.frame.size.width - 40) / 3;
-    int labelHeight = 20;
-    int labelPositionX = 10 + (currentColumn * (labelWidth + 10));
-    int labelPositionY = 30 + self.navigationController.navigationBar.frame.size.height + (currentRow * (labelHeight + 10));
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 2000);
-    return CGRectMake(labelPositionX,  labelPositionY, labelWidth, labelHeight);
+    int labelWidth = (self.view.frame.size.width - kLabelMargin * 4) / 3;
+    int labelPositionX = kLabelMargin + (currentColumn * (labelWidth + kLabelMargin));
+    int labelPositionY = kLabelMargin + (currentRow * (kLabelHeight + kLabelMargin));
+    return CGRectMake(labelPositionX,  labelPositionY, labelWidth, kLabelHeight);
 }
 
 #pragma mark - Departures Data Handling
@@ -112,7 +163,9 @@
 - (void)updateDeparturesViewControllerWithRows:(NSArray *)rows
 {
     [self separateRowsToDepartureArrays:rows];
-    [self drawWeekdayDepartures];
+    [self drawDeparturesForWeekdays];
+    [self drawDeparturesForSaturdays];
+    [self drawDeparturesForSundays];
 }
 
 @end

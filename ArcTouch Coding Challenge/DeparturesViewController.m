@@ -7,6 +7,7 @@
 //
 
 #import "DeparturesViewController.h"
+#import "SpinnerView.h"
 
 @interface DeparturesViewController ()
 
@@ -14,6 +15,7 @@
 
 @implementation DeparturesViewController {
 
+    SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
     NSMutableArray *departuresForWeekdays;
     NSMutableArray *departuresForSaturdays;
@@ -33,9 +35,11 @@
     [super viewDidLoad];
     [self setupScrollView];
     [self.view addSubview:scrollView];
+    [self setupSpinnerView];
     [self setTitleForNavigationBar];
     [self drawHeaders];
     [self setupWebAPIHandler];
+    [spinnerView showSpinner];
     [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
 }
 
@@ -50,6 +54,11 @@
     scrollView.showsVerticalScrollIndicator = YES;
     scrollView.scrollEnabled = YES;
     scrollView.userInteractionEnabled = YES;
+}
+
+- (void)setupSpinnerView
+{
+    spinnerView = [[SpinnerView alloc] initWithView:self.view];
 }
 
 - (void)setupWebAPIHandler
@@ -153,7 +162,7 @@
     int labelWidth = (self.view.frame.size.width - kLabelMargin * 4) / 3;
     int labelPositionX = kLabelMargin + (currentColumn * (labelWidth + kLabelMargin));
     int labelPositionY = kLabelMargin + (currentRow * (kLabelHeight + kLabelMargin));
-    return CGRectMake(labelPositionX,  labelPositionY, labelWidth, kLabelHeight);
+    return CGRectMake(labelPositionX, labelPositionY, labelWidth, kLabelHeight);
 }
 
 #pragma mark - Data Handling
@@ -183,6 +192,7 @@
 
 - (void)updateDeparturesViewControllerWithRows:(NSArray *)rows
 {
+    [spinnerView hideSpinner];
     [self separateRowsToDepartureArrays:rows];
     [self drawDeparturesForWeekdays];
     [self drawDeparturesForSaturdays];

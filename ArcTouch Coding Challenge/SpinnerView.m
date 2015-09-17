@@ -10,47 +10,61 @@
 
 @implementation SpinnerView {
 
-    UITableView *tableView;
+    UIView *parentView;
     UIView *dimView;
     UIActivityIndicatorView *spinnerView;
 
 }
 
-#pragma mark - Setup (public)
-
-- (id)initWithTableView:(UITableView *)tableViewForInstance
+- (id)initWithView:(UIView *)viewForInstance
 {
     self = [super init];
     if (self) {
-        tableView = tableViewForInstance;
+        parentView = viewForInstance;
         [self setupDimView];
         [self setupSpinnerView];
     }
     return self;
 }
 
-#pragma mark - Setup (private)
+#pragma mark - Setup Elements
 
 - (void)setupDimView
 {
-    dimView = [[UIView alloc] initWithFrame:tableView.frame];
-    dimView.backgroundColor = [UIColor cyanColor];
-    dimView.alpha = 0.1;
+    dimView = [[UIView alloc] initWithFrame:parentView.frame];
+    dimView.backgroundColor = [UIColor whiteColor];
+    dimView.alpha = 1;
+    [dimView addSubview:[self getLabel]];
 }
 
 - (void)setupSpinnerView
 {
     spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    spinnerView.frame = tableView.frame;
-    [spinnerView setCenter:CGPointMake(tableView.frame.size.width / 2, tableView.frame.size.height / 2)];
+    spinnerView.frame = parentView.frame;
+    [spinnerView setCenter:CGPointMake(parentView.frame.size.width / 2, parentView.frame.size.height / 2)];
 }
 
-#pragma mark - Show/Hide Spinner (public)
+- (UILabel *)getLabel
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:[self getFrameForLabel]];
+    label.text = kSpinnerLabelText;
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
+}
+
+- (CGRect)getFrameForLabel
+{
+    int labelWidth = parentView.frame.size.width;
+    int labelPositionY = (parentView.frame.size.height / 2) + kSpinnerLabelTopMargin;
+    return CGRectMake(0, labelPositionY, labelWidth, kLabelHeight);
+}
+
+#pragma mark - Show/Hide Spinner
 
 - (void)showSpinner
 {
-    [tableView addSubview:dimView];
-    [tableView addSubview:spinnerView];
+    [parentView addSubview:dimView];
+    [parentView addSubview:spinnerView];
     [spinnerView startAnimating];
 }
 

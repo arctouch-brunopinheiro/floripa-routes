@@ -32,7 +32,7 @@
     resultRowsForSearch = [[NSArray alloc] init];
     
     [self setupSearchBar];
-    spinnerView = [[SpinnerView alloc] initWithTableView:self.tableView];
+    spinnerView = [[SpinnerView alloc] initWithView:self.tableView];
 }
 
 #pragma mark - Table view data source

@@ -20,6 +20,11 @@
 #define kLabelMargin 5
 #define kTitleDepartures @"Departures"
 
+#pragma mark - Spinner
+
+#define kSpinnerLabelText @"fetching data.."
+#define kSpinnerLabelTopMargin 25
+
 #pragma mark - Web API
 
 #define kCustomHeaderField @"X-AppGlu-Environment"

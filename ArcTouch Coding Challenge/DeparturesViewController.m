@@ -15,6 +15,10 @@
 @implementation DeparturesViewController {
 
     WebAPIHandler *webAPIHandler;
+    NSMutableArray *departuresForWeekdays;
+    NSMutableArray *departuresForSaturdays;
+    NSMutableArray *departuresForSundays;
+    UIScrollView *scrollView;
     int currentRow;
     int currentColumn;
     
@@ -24,12 +28,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    scrollView = [[UIScrollView alloc]initWithFrame:self.view.frame];
+    scrollView.showsVerticalScrollIndicator=YES;
+    scrollView.scrollEnabled=YES;
+    scrollView.userInteractionEnabled=YES;
+    [self.view addSubview:scrollView];
+    [self drawHeaderLabels];
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
     [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
-    [self drawHeaderLabels];
-    NSLog(@"ROUTEID %@", routeId);
-    // Do any additional setup after loading the view.
 }
 
 - (void)drawHeaderLabels
@@ -43,10 +50,23 @@
         headerLabel.text = [headers objectAtIndex:i];
         headerLabel.textAlignment = NSTextAlignmentCenter;
         headerLabel.font = [UIFont boldSystemFontOfSize:14];
-        [self.view addSubview:headerLabel];
+        [scrollView addSubview:headerLabel];
     }
     currentRow++;
     currentColumn = 0;
+}
+
+- (void)drawWeekdayDepartures
+{
+    currentRow = 1;
+    for (int i = 0; i < [departuresForWeekdays count]; i++) {
+        currentRow = i;
+        UILabel *headerLabel = [self getCurrentLabel];
+        headerLabel.backgroundColor = [UIColor yellowColor];
+        headerLabel.text = [[departuresForWeekdays objectAtIndex:i] objectForKey:@"time"];
+        headerLabel.textAlignment = NSTextAlignmentCenter;
+        [scrollView addSubview:headerLabel];
+    }
 }
 
 - (UILabel *)getCurrentLabel
@@ -60,21 +80,39 @@
     int labelHeight = 20;
     int labelPositionX = 10 + (currentColumn * (labelWidth + 10));
     int labelPositionY = 30 + self.navigationController.navigationBar.frame.size.height + (currentRow * (labelHeight + 10));
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 2000);
     return CGRectMake(labelPositionX,  labelPositionY, labelWidth, labelHeight);
 }
 
-#pragma mark - Rows Dictionaries
+#pragma mark - Departures Data Handling
 
-- (void)loadRowsDictionariesFromRows:(NSArray *)rows
+- (void)separateRowsToDepartureArrays:(NSArray *)rows
 {
+    [self initDepartureArrays];
+    for (NSDictionary *row in rows) {
+        if ([[row objectForKey:@"calendar"] isEqualToString:@"WEEKDAY"]) {
+            [departuresForWeekdays addObject:row];
+        } else if ([[row objectForKey:@"calendar"] isEqualToString:@"SATURDAY"]) {
+            [departuresForSaturdays addObject:row];
+        } else if ([[row objectForKey:@"calendar"] isEqualToString:@"SUNDAY"]) {
+            [departuresForSundays addObject:row];
+        }
+    }
+}
 
+- (void)initDepartureArrays
+{
+    departuresForWeekdays = [[NSMutableArray alloc] init];
+    departuresForSaturdays = [[NSMutableArray alloc] init];
+    departuresForSundays = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Delegates
 
 - (void)updateDeparturesViewControllerWithRows:(NSArray *)rows
 {
-
+    [self separateRowsToDepartureArrays:rows];
+    [self drawWeekdayDepartures];
 }
 
 @end

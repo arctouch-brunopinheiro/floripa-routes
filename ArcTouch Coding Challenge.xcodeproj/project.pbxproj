@@ -466,6 +466,7 @@
 				279A9DC81BA7966E006AAE19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		279A9DC91BA7966E006AAE19 /* Build configuration list for PBXNativeTarget "ArcTouch Coding ChallengeTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +475,7 @@
 				279A9DCB1BA7966E006AAE19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

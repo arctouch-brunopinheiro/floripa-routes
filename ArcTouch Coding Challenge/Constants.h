@@ -11,15 +11,26 @@
 
 #pragma mark - Departures View
 
+#define kDeparturesLabelFontSize 12
+#define kHeaderLabelFontSize 14
+#define kHeaderSaturday @"Saturday"
+#define kHeaderSunday @"Sunday"
+#define kHeaderWeekday @"Weekday"
 #define kLabelHeight 20
 #define kLabelMargin 5
+#define kTitleDepartures @"Departures"
 
 #pragma mark - Web API
 
 #define kCustomHeaderField @"X-AppGlu-Environment"
 #define kCustomHeaderValue @"staging"
+#define kKeyCalendar @"calendar"
 #define kKeyRouteId @"routeId"
+#define kKeySaturday @"SATURDAY"
+#define kKeySunday @"SUNDAY"
 #define kKeyStopName @"stopName"
+#define kKeyTime @"time"
+#define kKeyWeekday @"WEEKDAY"
 #define kPassword @"DtdTtzMLQlA0hk2C1Yi5pLyVIlAQ68"
 #define kSearchType_findRoutesByStopName @"findRoutesByStopName"
 #define kSearchType_findDeparturesByRouteId @"findDeparturesByRouteId"

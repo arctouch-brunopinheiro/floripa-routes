@@ -41,7 +41,7 @@
 
 - (void)setTitleForNavigationBar
 {
-    self.navigationItem.title = @"Departures";
+    self.navigationItem.title = kTitleDepartures;
 }
 
 - (void)setupScrollView
@@ -63,7 +63,7 @@
 - (void)drawHeaders
 {
     currentRow = 0;
-    NSArray *headers = @[@"Weekdays", @"Saturdays", @"Sundays"];
+    NSArray *headers = @[kHeaderWeekday, kHeaderSaturday, kHeaderSunday];
     for (int i = 0; i < [headers count]; i++) {
         currentColumn = i;
         UILabel *label = [self getFormattedLabelForHeaders];
@@ -78,7 +78,7 @@
     for (int i = 0; i < [departuresForWeekdays count]; i++) {
         currentRow = i + 1;
         UILabel *label = [self getFormattedLabelForDepartures];
-        label.text = [[departuresForWeekdays objectAtIndex:i] objectForKey:@"time"];
+        label.text = [[departuresForWeekdays objectAtIndex:i] objectForKey:kKeyTime];
         [scrollView addSubview:label];
         if (i == ([departuresForWeekdays count] - 1)) {
             CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
@@ -93,7 +93,7 @@
     for (int i = 0; i < [departuresForSaturdays count]; i++) {
         currentRow = i + 1;
         UILabel *label = [self getFormattedLabelForDepartures];
-        label.text = [[departuresForSaturdays objectAtIndex:i] objectForKey:@"time"];
+        label.text = [[departuresForSaturdays objectAtIndex:i] objectForKey:kKeyTime];
         [scrollView addSubview:label];
         if (i == ([departuresForSaturdays count] - 1)) {
             CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
@@ -108,7 +108,7 @@
     for (int i = 0; i < [departuresForSundays count]; i++) {
         currentRow = i + 1;
         UILabel *label = [self getFormattedLabelForDepartures];
-        label.text = [[departuresForSundays objectAtIndex:i] objectForKey:@"time"];
+        label.text = [[departuresForSundays objectAtIndex:i] objectForKey:kKeyTime];
         [scrollView addSubview:label];
         if (i == ([departuresForSundays count] - 1)) {
             CGFloat scrollViewHeight = label.frame.origin.y + kLabelHeight + kLabelMargin;
@@ -134,7 +134,7 @@
 - (UILabel *)getFormattedLabelForHeaders
 {
     UILabel *label = [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
-    label.font = [UIFont systemFontOfSize:14];
+    label.font = [UIFont systemFontOfSize:kHeaderLabelFontSize];
     label.textAlignment = NSTextAlignmentCenter;
     return label;
 }
@@ -142,7 +142,7 @@
 - (UILabel *)getFormattedLabelForDepartures
 {
     UILabel *label = [[UILabel alloc] initWithFrame:[self getFrameForCurrentLabel]];
-    label.font = [UIFont systemFontOfSize:12];
+    label.font = [UIFont systemFontOfSize:kDeparturesLabelFontSize];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor darkGrayColor];
     return label;
@@ -162,11 +162,11 @@
 {
     [self initDepartureArrays];
     for (NSDictionary *row in rows) {
-        if ([[row objectForKey:@"calendar"] isEqualToString:@"WEEKDAY"]) {
+        if ([[row objectForKey:kKeyCalendar] isEqualToString:kKeyWeekday]) {
             [departuresForWeekdays addObject:row];
-        } else if ([[row objectForKey:@"calendar"] isEqualToString:@"SATURDAY"]) {
+        } else if ([[row objectForKey:kKeyCalendar] isEqualToString:kKeySaturday]) {
             [departuresForSaturdays addObject:row];
-        } else if ([[row objectForKey:@"calendar"] isEqualToString:@"SUNDAY"]) {
+        } else if ([[row objectForKey:kKeyCalendar] isEqualToString:kKeySunday]) {
             [departuresForSundays addObject:row];
         }
     }

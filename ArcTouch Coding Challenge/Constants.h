@@ -9,6 +9,10 @@
 #ifndef ArcTouch_Coding_Challenge_Constants_h
 #define ArcTouch_Coding_Challenge_Constants_h
 
+#pragma mark - Cells
+
+#define kCellLabelFontSize 14
+
 #pragma mark - Departures View
 
 #define kDeparturesLabelFontSize 12

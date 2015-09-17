@@ -27,13 +27,34 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self setupWebAPIHandler];
+    [self setupSearchController];
+    [self setupSpinnerView];
+    [self setupResultsForSearch];
+}
+
+#pragma mark - Setup
+
+- (void)setupWebAPIHandler
+{
     webAPIHandler = [[WebAPIHandler alloc] init];
     webAPIHandler.delegate = self;
+}
 
+- (void)setupResultsForSearch
+{
     resultRowsForSearch = [[NSArray alloc] init];
-    
-    [self setupSearchBar];
-    spinnerView = [[SpinnerView alloc] initWithView:self.tableView];
+}
+
+- (void)setupSpinnerView
+{
+    spinnerView = [[SpinnerView alloc] initWithView:self.view];
+}
+
+- (void)setupSearchController
+{
+    searchController = [self getSearchController];
+    self.tableView.tableHeaderView = searchController.searchBar;
 }
 
 #pragma mark - Table view data source
@@ -48,25 +69,23 @@
     return [resultRowsForSearch count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     cell.textLabel.text = [cellContent objectForKey:@"longName"];
+    cell.textLabel.font = [UIFont systemFontOfSize:kCellLabelFontSize];
     return cell;
 }
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
-    
     UINavigationController *navController = [segue destinationViewController];
     StopsTableViewController *stopsTableViewController = (StopsTableViewController *)([navController viewControllers][0]);
-    
-
-    
-    //DetailTableViewController *destinationViewController = [segue destinationViewController];
     stopsTableViewController.routeId = [cellContent objectForKey:@"id"];
 }
 
@@ -74,42 +93,52 @@
 
 - (void)hideSpinnerOnSearchTableViewController
 {
-    [spinnerView hideSpinner];
+    //[spinnerView hideSpinner];
 }
 
 - (void)showSpinnerOnSearchTableViewController
 {
-    [spinnerView showSpinner];
+    //[spinnerView showSpinner];
 }
 
 - (void)updateSearchTableViewControllerWithRows:(NSArray *)rows
 {
+    [spinnerView hideSpinner];
     resultRowsForSearch = rows;
     [self.tableView reloadData];
 }
 
 #pragma mark - Search Bar
 
-- (void)setupSearchBar
+- (UISearchController *)getSearchController
 {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar sizeToFit];
-    [searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
-    [searchController.searchBar setBackgroundImage:[UIImage imageWithCGImage:(__bridge CGImageRef)([UIColor clearColor])]];
-    searchController.searchBar.tintColor = self.navigationController.navigationBar.barTintColor;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    UISearchController *controller = [[UISearchController alloc] initWithSearchResultsController:nil];
+    [self addConfigToSearchController:controller];
+    [self addStylesToSearchController:controller];
+    return controller;
+}
+
+- (void)addConfigToSearchController:(UISearchController *)controller
+{
+    controller.dimsBackgroundDuringPresentation = NO;
+    controller.searchBar.delegate = self;
+    [controller.searchBar sizeToFit];
+}
+
+- (void)addStylesToSearchController:(UISearchController *)controller
+{
+    [controller.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    [controller.searchBar setBackgroundImage:[UIImage imageWithCGImage:(__bridge CGImageRef)([UIColor clearColor])]];
+    controller.searchBar.tintColor = self.navigationController.navigationBar.barTintColor;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSString *searchString = [self prepareSearchTextForSearch:searchBar.text];
     [self.searchController setActive:NO];
+    [spinnerView showSpinner];
     [webAPIHandler findRoutesByStopName:searchString];
 }
-
-#pragma mark - Helpers
 
 - (NSString *)prepareSearchTextForSearch:(NSString *)searchText
 {

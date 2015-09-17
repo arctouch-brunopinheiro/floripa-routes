@@ -58,7 +58,7 @@
     
     NSDictionary *cellContent = [rowsForRoutes objectAtIndex:indexPath.row];
     cell.textLabel.text = [cellContent objectForKey:@"name"];
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.textLabel.font = [UIFont systemFontOfSize:kCellLabelFontSize];
     return cell;
 }
 

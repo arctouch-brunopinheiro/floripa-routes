@@ -26,18 +26,39 @@
 
 @synthesize routeId;
 
-- (void)viewDidLoad {
+#pragma mark - Setup
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    scrollView = [[UIScrollView alloc]initWithFrame:self.view.frame];
-    scrollView.showsVerticalScrollIndicator=YES;
-    scrollView.scrollEnabled=YES;
-    scrollView.userInteractionEnabled=YES;
+    [self setupScrollView];
     [self.view addSubview:scrollView];
+    [self setTitleForNavigationBar];
     [self drawHeaders];
-    webAPIHandler = [[WebAPIHandler alloc] init];
-    webAPIHandler.delegate = self;
+    [self setupWebAPIHandler];
     [webAPIHandler findDeparturesByRouteId:[routeId stringValue]];
 }
+
+- (void)setTitleForNavigationBar
+{
+    self.navigationItem.title = @"Departures";
+}
+
+- (void)setupScrollView
+{
+    scrollView = [[UIScrollView alloc]initWithFrame:self.view.frame];
+    scrollView.showsVerticalScrollIndicator = YES;
+    scrollView.scrollEnabled = YES;
+    scrollView.userInteractionEnabled = YES;
+}
+
+- (void)setupWebAPIHandler
+{
+    webAPIHandler = [[WebAPIHandler alloc] init];
+    webAPIHandler.delegate = self;
+}
+
+#pragma mark - Showing Data
 
 - (void)drawHeaders
 {
@@ -103,7 +124,7 @@
     }
 }
 
-#pragma mark - Labels
+#pragma mark - Creating Labels
 
 - (UILabel *)getCurrentLabel
 {
@@ -135,7 +156,7 @@
     return CGRectMake(labelPositionX,  labelPositionY, labelWidth, kLabelHeight);
 }
 
-#pragma mark - Departures Data Handling
+#pragma mark - Data Handling
 
 - (void)separateRowsToDepartureArrays:(NSArray *)rows
 {

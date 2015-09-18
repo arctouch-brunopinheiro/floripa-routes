@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Mike Quade. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
+@import Foundation;
 
 @protocol WebAPISearchDelegate <NSObject>
 

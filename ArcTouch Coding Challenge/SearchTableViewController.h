@@ -7,7 +7,8 @@
 //
 
 #import "WebAPIHandler.h"
-#import <UIKit/UIKit.h>
+
+@import UIKit;
 
 @interface SearchTableViewController : UITableViewController <UISearchBarDelegate, WebAPISearchDelegate>
 

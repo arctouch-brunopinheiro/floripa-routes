@@ -41,7 +41,7 @@
 {
     spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     spinnerView.frame = parentView.frame;
-    [spinnerView setCenter:CGPointMake(parentView.frame.size.width / 2, parentView.frame.size.height / 2)];
+    [spinnerView setCenter:CGPointMake(parentView.frame.size.width / 2, (parentView.frame.size.height / 2) - 100)];
 }
 
 - (UILabel *)getLabel
@@ -55,7 +55,7 @@
 - (CGRect)getFrameForLabel
 {
     int labelWidth = parentView.frame.size.width;
-    int labelPositionY = (parentView.frame.size.height / 2) + kSpinnerLabelTopMargin;
+    int labelPositionY = (parentView.frame.size.height / 2) - 100 + kSpinnerLabelTopMargin;
     return CGRectMake(0, labelPositionY, labelWidth, kLabelHeight);
 }
 

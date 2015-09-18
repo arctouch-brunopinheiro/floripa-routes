@@ -12,6 +12,7 @@
 
 @interface SearchTableViewController : UITableViewController <UISearchBarDelegate, WebAPISearchDelegate>
 
+// QUESTION: Why is this property declared in the public interface?
 @property (strong, nonatomic) UISearchController *searchController;
 
 @end

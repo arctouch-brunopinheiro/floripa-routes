@@ -14,7 +14,7 @@
 @end
 
 @implementation DeparturesViewController {
-
+    // QUESTION: Why not properties?
     SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
     NSMutableArray *departuresForWeekdays;
@@ -25,7 +25,7 @@
     int currentColumn;
     
 }
-
+// QUESTION: Why do you need this synthesize?
 @synthesize routeId;
 
 #pragma mark - Setup
@@ -70,6 +70,7 @@
 
 - (void)drawHeaders
 {
+    // QUESTION: Why 'currentRow' and 'currentColumn' are iVars?
     currentRow = 0;
     NSArray *headers = @[kHeaderWeekday, kHeaderSaturday, kHeaderSunday];
     for (int i = 0; i < [headers count]; i++) {
@@ -170,6 +171,7 @@
 {
     [self initDepartureArrays];
     for (NSDictionary *row in rows) {
+        // You really like nested ifs, don't you? :) But I recommend you avoid them.
         if ([[row objectForKey:kKeyCalendar] isEqualToString:kKeyWeekday]) {
             [departuresForWeekdays addObject:row];
         } else if ([[row objectForKey:kKeyCalendar] isEqualToString:kKeySaturday]) {

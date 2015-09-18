@@ -11,7 +11,6 @@
 #import "StopsTableViewController.h"
 
 @interface StopsTableViewController () {
-    
     SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
     NSArray *rowsForStops;

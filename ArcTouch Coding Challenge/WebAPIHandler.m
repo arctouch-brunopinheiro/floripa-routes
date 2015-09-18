@@ -9,11 +9,11 @@
 #import "WebAPIHandler.h"
 
 @implementation WebAPIHandler {
-
+    // QUESTION: Why not a property?
     NSString *searchType;
 
 }
-
+// QUESTION: Why are you synthesizing this property?
 @synthesize delegate;
 
 #pragma mark - Perform Searches (public)
@@ -84,7 +84,8 @@
     NSString *authenticationValue = [authenticationData base64EncodedStringWithOptions:0];
     return [NSString stringWithFormat:@"Basic %@", authenticationValue];
 }
-
+// FIXME: method names starting with "get" are unusual and the parameter is not expressed in this name either.
+// A better name here could be: mutableRequestWithURLString:(NSString *)urlString
 - (NSMutableURLRequest *)getMutableURLRequest:(NSString *)urlString
 {
     NSURL *url = [NSURL URLWithString:urlString];
@@ -97,6 +98,7 @@
 {
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[self getAuthenticationValue] forHTTPHeaderField:@"Authorization"];
+    // FIXME: "CustomHeader" is not a name that makes clear what is being passed here
     [request addValue:kCustomHeaderValue forHTTPHeaderField:kCustomHeaderField];
     [request setHTTPMethod:@"POST"];
 }
@@ -122,13 +124,14 @@
 {
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *responseCode, NSData *responseData, NSError *responseError) {
         if ([responseData length] > 0 && responseError == nil){
-            if (![self isResponseDataContainingResults:responseData]) {
+            if (![self isResponseDataContainingResults:responseData]) { // FIXME: 'isEmptyResponse' would be more clear about the intention here
                 [self showAlertForError:@"The search returned no results"];
-                [self requestDidFail];
+                [self requestDidFail];// QUESTION: By reading this method name I suppose by the context that we are propagating the failure, but the intention of the method is not really clear. Can you think of a better name?
             } else {
                 [self returnResponseDataToView:responseData];
             }
         } else if ([responseData length] == 0 && responseError == nil){
+            // QUESTION: Is that ok for this class to be spawning alerts? Why?
             [self showAlertForError:@"The data could not be accessed"];
             [self requestDidFail];
         } else if (responseError != nil && responseError.code == NSURLErrorTimedOut){
@@ -138,13 +141,16 @@
             [self showAlertForError:@"The data could not be downloaded"];
             [self requestDidFail];
         }
+        // QUESTION: Nested if/elses make it very hard to understand the flow of the program. Any alternative?
     }];
 }
 
 #pragma mark - Handling URL Response (private)
-
+// QUESTION: How do you know it is a view or view controller who is going to receive the data? (I know it was you who implemented the caller too, but let's assume the general case :P)
+// QUESTION: Can you tell me why this is not a good name?
 - (void)returnResponseDataToView:(NSData *)responseData
 {
+    // QUESTION: How else could you handle this without using strings?
     if ([searchType isEqualToString:kSearchType_findRoutesByStopName]) {
         [self updateSearchTableViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     } else if ([searchType isEqualToString:kSearchType_findStopsByRouteId]) {
@@ -153,7 +159,7 @@
         [self updateDeparturesViewControllerWithRows:[self prepareResponseDataForView:responseData]];
     }
 }
-
+// QUESTION: What are exactly the responsibilities of this class? Is this method according to them? Why?
 - (NSArray *)prepareResponseDataForView:(NSData *)responseData
 {
     NSDictionary *rawResponse = [self decodeResponseData:responseData];

@@ -15,7 +15,7 @@
 @end
 
 @implementation SearchTableViewController {
-
+    // QUESTION: Why not properties?
     SpinnerView *spinnerView;
     WebAPIHandler *webAPIHandler;
     NSArray *resultRowsForSearch;
@@ -94,6 +94,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *cellContent = [resultRowsForSearch objectAtIndex:indexPath.row];
     UINavigationController *navController = [segue destinationViewController];
+    // FIXME: This is just a suggestion! As you are initializing a variable just declared, you don't really need to cast since it is very easy to infer the type here.
     StopsTableViewController *stopsTableViewController = (StopsTableViewController *)([navController viewControllers][0]);
     stopsTableViewController.routeId = [cellContent objectForKey:kKeyId];
 }
@@ -121,7 +122,8 @@
 }
 
 #pragma mark - Search Bar
-
+// FIXME: 'get' is a prefix for accessor method names in other languages, this is a factory method. You should name it 'createSearchController' or something alike.
+// QUESTION: An alternative here would be to use the property accessor and make it lazy. Can you tell me how you could implement it?
 - (UISearchController *)getSearchController
 {
     UISearchController *controller = [[UISearchController alloc] initWithSearchResultsController:nil];
